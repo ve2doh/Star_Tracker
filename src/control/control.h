@@ -37,6 +37,7 @@
 #define C_MESSIER				KP_KEY_3
 #define C_CALDWELL				KP_KEY_2
 #define C_NGC					KP_KEY_1
+#define C_GPS					KP_KEY_4
 #define C_N1					KP_KEY_1
 #define C_N2					KP_KEY_2
 #define C_N3					KP_KEY_3        
@@ -59,7 +60,7 @@ class Control {
 
       public:
 
-        enum State { MAIN, HELP, GOTO, CALIB, CATALOG, SHOOT, TIME, POSITION, BRIGHT };
+        enum State { MAIN, HELP, GOTO, CALIB, CATALOG, SHOOT, TIME, POSITION, BRIGHT, GPS };
 
         Control(MountController& mount, CameraController& camera, Clock& clock)
             : _mount(mount), _camera(camera), _clock(clock) {}
@@ -116,6 +117,8 @@ class Control {
 
         // catalogue search
         void catalogue_menu();
+        
+        void GPS_menu();
 
         void help_menu();
 
@@ -156,6 +159,8 @@ class Control {
         inline ControlSubState increment_substate() {
             return static_cast<ControlSubState>(static_cast<uint8_t>(_substate)+1);
         }
+        
+        void update_localisation_time();
 
         State _state;
         ControlSubState _substate;

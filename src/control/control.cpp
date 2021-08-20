@@ -47,6 +47,7 @@ void Control::update() {
         case TIME:    time_menu(); break;
         case BRIGHT:    brightness_menu(); break;
         case POSITION:  position_menu(); break;
+        case GPS: GPS_menu(); break;
     }
 }
 
@@ -59,10 +60,22 @@ void Control::help_menu() {
     if ((millis() - _last_substate_change_time) > INFO_SCREEN_MS) {
         _last_substate_change_time = millis();
         change_substate(increment_substate());
-        if (_substate > S9) change_substate(S0);
+        if (_substate > S10) change_substate(S0);
     }
 
     _display.render_help(_last_state_changed || _last_substate_changed, _substate);			
+}
+
+void Control::GPS_menu() {
+    if (_keypad.pushed(C_EXIT)) change_state(MAIN);
+    if (_keypad.pressed(C_ENTER)) {
+    	update_localisation_time();
+    	change_state(MAIN);
+	}
+}
+
+void Control::update_localisation_time() {
+
 }
 
 void Control::position_menu() {
@@ -136,6 +149,7 @@ void Control::main_menu() {
         change_state(CATALOG);
         change_substate(S2);
     }
+    else if(_keypad.pushed(C_GPS)) change_state(GPS);
 
     manual_control(S0, S1, S2, S3);
 

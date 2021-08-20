@@ -83,21 +83,26 @@ void Display::render_help(bool refresh, ControlSubState phase) {
         _lcd.print(F("C long Load cal."));
     }
     else if(phase == S6) {
+        _lcd.print(F("4 .. get GPS"));
+        _lcd.setCursor(0, 1);
+        _lcd.print(F("C long Load GPS"));
+    }
+    else if(phase == S7) {
         _lcd.print(F("3 ...... Messier"));
         _lcd.setCursor(0, 1);
         _lcd.print(F("2 ..... Caldwell"));
     }
-    else if(phase == S7) {
+    else if(phase == S8) {
         _lcd.print(F("1 .......... NGC")); 
         _lcd.setCursor(0, 1);
         _lcd.print(F("0 ...... Parking"));
     }
-    else if(phase == S8) {
+    else if(phase == S9) {
         _lcd.print(F("B ... Brightness"));
         _lcd.setCursor(0, 1);
         _lcd.print(F("5 .. Time config"));
     }
-    else if(phase == S9) {
+    else if(phase == S10) {
         _lcd.print(F("Use long 0 press"));
         _lcd.setCursor(0, 1);
         _lcd.print(F("for negative n. "));

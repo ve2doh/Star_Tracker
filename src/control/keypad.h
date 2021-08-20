@@ -3,30 +3,28 @@
 
 #include <IRremote.h>
 
-#define KP_KEY_A             0xFFA25D
-#define KP_KEY_B             0xFF629D
-#define KP_KEY_C             0xFFE21D
-#define KP_KEY_D             0xFF22DD  
-#define KP_KEY_E             0xFFC23D 
-#define KP_KEY_F             0xFFB04F
-#define KP_KEY_1             0xFF30CF 
-#define KP_KEY_2             0xFF18E7
-#define KP_KEY_3             0xFF7A85
-#define KP_KEY_4             0xFF10EF  
-#define KP_KEY_5             0xFF38C7 
-#define KP_KEY_6             0xFF5AA5  
-#define KP_KEY_7             0xFF42BD  
-#define KP_KEY_8             0xFF4AB5 
-#define KP_KEY_9             0xFF52AD
-#define KP_KEY_0             0xFF6897 
-#define KP_KEY_UP_ARROW      0xFF02FD  
-#define KP_KEY_DOWN_ARROW    0xFF9867 
-#define KP_KEY_RIGHT_ARROW   0xFF906F
-#define KP_KEY_LEFT_ARROW    0xFFE01F
-#define KP_KEY_OK            0xFFA857
-
+#define KP_KEY_A             0x61A018E7
+#define KP_KEY_B             0x61A048B7
+#define KP_KEY_C             0x61A038C7
+#define KP_KEY_D             0x61A0B847  
+#define KP_KEY_E             0x61A008F7 
+#define KP_KEY_F             0x61A0E817
+#define KP_KEY_1             0x61A000FF 
+#define KP_KEY_2             0x61A0807F
+#define KP_KEY_3             0x61A040BF
+#define KP_KEY_4             0x61A0C03F  
+#define KP_KEY_5             0x61A020DF
+#define KP_KEY_6             0x61A0A05F
+#define KP_KEY_7             0x61A0609F  
+#define KP_KEY_8             0x61A0E01F
+#define KP_KEY_9             0x61A010EF
+#define KP_KEY_0             0x61A0906F
+#define KP_KEY_UP_ARROW      0x61A050AF  
+#define KP_KEY_DOWN_ARROW    0x61A0D02F
+#define KP_KEY_RIGHT_ARROW   0x61A030CF
+#define KP_KEY_LEFT_ARROW    0x61A0B04F
+#define KP_KEY_OK            0x61A018E7
 #define KP_UPDATE_MS         200     
-
 class Keypad {
 
     public:
@@ -80,12 +78,11 @@ class Keypad {
 
         uint32_t get_key() {
 
-            decode_results results;
-            if (!_recv.decode(&results)) return 0;
+            if (!_recv.decode()) return 0;
 
             _recv.resume();
 
-            return (results.value == 0xFFFFFFFF ? _used_key : results.value) ;
+            return (_recv.results.value == 0xFFFFFFFF ? _used_key : _recv.results.value) ;
         }
 
         IRrecv _recv;
